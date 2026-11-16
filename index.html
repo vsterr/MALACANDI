@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MALACANDI — Malang Landscape of Ancient Candi</title>
+  <title>MALACANDI | Malang Landscape of Ancient Candi</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -723,10 +723,10 @@
       padding: 100px 48px;
       background: #09060200;
     }
-    .team-container { max-width: 900px; margin: 0 auto; text-align: center; }
+    .team-container { max-width: 1100px; margin: 0 auto; text-align: center; }
     .team-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 2px;
       background: rgba(200,162,40,0.1);
       margin-top: 60px;
@@ -1018,9 +1018,54 @@
       .modal-box { padding: 36px 28px; max-height: 85vh; }
       .modal-info-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── ANIMASI TAMBAHAN ── */
+    #progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 2000; background: linear-gradient(to right, var(--terracotta), var(--gold-light)); transform: scaleX(0); transform-origin: left; }
+    .reveal { filter: blur(6px); transition: opacity 0.85s, transform 0.85s, filter 0.85s; }
+    .reveal.visible { filter: none; }
+    .section-title::after { content: ''; display: block; width: 0; height: 2px; margin-top: 16px; background: linear-gradient(to right, var(--gold), transparent); transition: width 1.1s 0.35s ease; }
+    .reveal.visible .section-title::after { width: 84px; }
+    .candi-list-header .section-title::after, #team .section-title::after { margin-left: auto; margin-right: auto; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .section-title em { background: linear-gradient(90deg, var(--gold-light) 0%, #fff1bd 45%, var(--gold-light) 90%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 7s linear infinite; }
+    @keyframes shimmer { to { background-position: -220% 0; } }
+
+    .hero-slides { will-change: transform; }
+    .btn-primary, .btn-outline { position: relative; overflow: hidden; }
+    .btn-primary::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent); transform: skewX(-20deg); animation: sheen 4.5s 2s infinite; }
+    @keyframes sheen { 0%, 60% { left: -60%; } 100% { left: 140%; } }
+
+    .about-img-main, .about-img-accent { transform: translateY(var(--py, 0px)); will-change: transform; transition: filter 0.6s; }
+    .about-img-accent { animation: floaty 7s ease-in-out infinite; }
+    .about-img-border { animation: floaty 9s ease-in-out infinite reverse; }
+    .about-visual-col:hover .about-img-main, .about-visual-col:hover .about-img-accent { filter: sepia(0.1) brightness(0.9) saturate(1.2); }
+    @keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+    .candi-strip .candi-strip-item { opacity: 0; transform: translateX(-28px); transition: opacity 0.7s, transform 0.7s, background 0.3s; }
+    .candi-strip.visible .candi-strip-item { opacity: 1; transform: none; }
+    .candi-strip.visible .candi-strip-item:nth-child(2) { transition-delay: 0.08s, 0.08s, 0s; }
+    .candi-strip.visible .candi-strip-item:nth-child(3) { transition-delay: 0.16s, 0.16s, 0s; }
+    .candi-strip.visible .candi-strip-item:nth-child(4) { transition-delay: 0.24s, 0.24s, 0s; }
+    .candi-strip.visible .candi-strip-item:nth-child(5) { transition-delay: 0.32s, 0.32s, 0s; }
+    .candi-strip.visible .candi-strip-item:nth-child(6) { transition-delay: 0.4s, 0.4s, 0s; }
+    .candi-strip-item .candi-strip-num { transition: color 0.4s, transform 0.4s; }
+    .candi-strip-item:hover .candi-strip-num { color: var(--gold); transform: scale(1.12); }
+    .candi-strip-info { transition: transform 0.4s; }
+    .candi-strip-item:hover .candi-strip-info { transform: translateX(8px); }
+
+    .candi-card::after, .team-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(230,201,92,0.2), transparent 70%); }
+    .candi-card::after { z-index: 3; }
+    .candi-card:hover::after, .team-card:hover::before { opacity: 1; }
+    .team-avatar { transition: transform 0.5s, box-shadow 0.5s; }
+    .team-card:hover .team-avatar { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(200,162,40,0.15), 0 0 0 12px rgba(200,162,40,0.07); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal, .candi-strip .candi-strip-item { opacity: 1; transform: none; filter: none; }
+    }
   </style>
 </head>
 <body>
+<div id="progress"></div>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="main-nav">
@@ -1036,7 +1081,7 @@
     </div>
     <div>
       MALACANDI
-      <span>Malang · Ancient Candi</span>
+      <span>Malang, Ancient Candi</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -1058,11 +1103,11 @@
   <div class="hero-top-fade"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">Malang Raya · Jawa Timur · Indonesia</div>
     <h1 class="hero-title">
       MALACANDI
       <em>Malang Landscape of Ancient Candi</em>
     </h1>
+    <p class="hero-subtitle">
       Menjelajahi warisan cagar budaya candi-candi bersejarah di Malang Raya
       melalui arsip digital dan pengalaman virtual tour yang imersif.
     </p>
@@ -1078,10 +1123,6 @@
     </div>
   </div>
 
-  <div class="hero-scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
 
   <div class="hero-dots">
     <div class="hero-dot active" data-slide="0"></div>
@@ -1097,40 +1138,12 @@
     <div class="about-grid">
       <div class="about-text-col">
         <div class="reveal">
-          <div class="gold-tag">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1l1.5 3 3 .5-2.2 2.1.5 3.1L6 8.3 3.2 9.7l.5-3.1L1.5 4.5l3-.5z"/></svg>
-            Penelitian OPSI 2026 - PRISMA ISH 8 MAN Kota Batu
-          </div>
-          <div class="section-label">Tentang Penelitian</div>
           <h2 class="section-title">Digitalisasi <em>Warisan Budaya</em> Candi Malang Raya</h2>
           <p class="section-body">
             Keberadaan situs warisan cagar budaya di Indonesia tengah menghadapi tantangan besar akibat kerusakan material, kemajuan zaman, dan kurangnya dokumentasi. MALACANDI hadir sebagai solusi inovatif berupa website virtual tour 360° yang mengintegrasikan teknologi kamera imersif sebagai media arsip digital permanen untuk candi-candi bersejarah di wilayah Malang Raya.
           </p>
         </div>
 
-        <div class="research-goals reveal reveal-delay-1">
-          <div class="research-goal">
-            <div class="goal-num">01</div>
-            <div class="goal-text">
-              <strong>Tujuan Penelitian</strong>
-              <p>Mengembangkan website virtual tour 360° sebagai media arsip digital untuk melestarikan cagar budaya candi di Malang Raya secara berkelanjutan.</p>
-            </div>
-          </div>
-          <div class="research-goal">
-            <div class="goal-num">02</div>
-            <div class="goal-text">
-              <strong>Rumusan Masalah</strong>
-              <p>Menganalisis kelayakan website virtual tour dalam memberikan aksesibilitas dan pengalaman imersif kepada masyarakat sebagai upaya pelestarian cagar budaya.</p>
-            </div>
-          </div>
-          <div class="research-goal">
-            <div class="goal-num">03</div>
-            <div class="goal-text">
-              <strong>Metode Penelitian</strong>
-              <p>Penelitian ini menggunakan metode kualitatif dengan adaptasi model Research and Development (R&D): identifikasi kebutuhan → perancangan → validasi ahli → revisi produk.</p>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="about-visual-col reveal reveal-delay-2">
@@ -1138,29 +1151,6 @@
           <div class="about-img-main"></div>
           <div class="about-img-accent"></div>
           <div class="about-img-border"></div>
-        </div>
-
-        <div class="benefits-grid" style="margin-top:48px;">
-          <div class="benefit-card reveal reveal-delay-3">
-            <div class="benefit-icon">🏛</div>
-            <h4>Preservasi Digital</h4>
-            <p>Mendokumentasikan kondisi fisik candi sebelum terjadi kerusakan lebih lanjut</p>
-          </div>
-          <div class="benefit-card reveal reveal-delay-4">
-            <div class="benefit-icon">🌐</div>
-            <h4>Aksesibilitas Global</h4>
-            <p>Kunjungi candi tanpa batas ruang dan waktu dari seluruh penjuru dunia</p>
-          </div>
-          <div class="benefit-card reveal reveal-delay-5">
-            <div class="benefit-icon">📚</div>
-            <h4>Media Edukasi</h4>
-            <p>Tingkatkan minat generasi muda terhadap warisan budaya leluhur bangsa</p>
-          </div>
-          <div class="benefit-card reveal reveal-delay-6">
-            <div class="benefit-icon">🔬</div>
-            <h4>Arsip Ilmiah</h4>
-            <p>Repositori data visual yang akurat untuk kepentingan riset dan dokumentasi</p>
-          </div>
         </div>
       </div>
     </div>
@@ -1171,7 +1161,6 @@
 <section id="candi-list">
   <div class="candi-list-container">
     <div class="candi-list-header reveal">
-      <div class="section-label">MALACANDI</div>
       <h2 class="section-title">VIRTUAL TOUR CANDI DI <em>MALANG RAYA</em></h2>
       <p class="section-body" style="margin:0 auto;text-align:center;">
         Dari peninggalan Mataram Kuno hingga Kerajaan Singhasari dan Majapahit, enam situs yang menjadi fokus dokumentasi virtual MALACANDI.
@@ -1240,10 +1229,10 @@
           <h3>Candi Jago</h3>
           <div class="candi-strip-meta">
             <span>📍 Tumpang, Malang</span>
-            <span>⏳ Abad ke-13–14 M</span>
+            <span>⏳ Abad ke-13 sampai 14 M</span>
           </div>
         </div>
-        <div class="strip-era">Singhasari–Majapahit</div>
+        <div class="strip-era">Singhasari sampai Majapahit</div>
       </div>
     </div>
   </div>
@@ -1254,7 +1243,6 @@
   <div class="tour-container">
     <div class="tour-header">
       <div class="reveal">
-        <div class="section-label">Eksplorasi Digital</div>
         <h2 class="section-title">Pilih <em>Virtual Tour</em> Candimu</h2>
         <p class="section-body">
           Jelajahi setiap sudut dan relief candi secara imersif menggunakan teknologi foto 360° kapan saja, di mana saja, tanpa batas.
@@ -1276,7 +1264,7 @@
         <div class="candi-card-num">01</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Songgoriti</div>
-          <div class="candi-card-loc">Batu, Malang · Mataram Kuno</div>
+          <div class="candi-card-loc">Batu, Malang, Mataram Kuno</div>
           <div class="candi-card-desc">Candi Hindu-Buddha tertua di Kota Batu, terletak di kawasan sumber air panas Songgoriti, berasal dari abad ke-9 Masehi.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1292,7 +1280,7 @@
         <div class="candi-card-num">02</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Badut</div>
-          <div class="candi-card-loc">Malang Barat · Kanjuruhan</div>
+          <div class="candi-card-loc">Malang Barat, Kanjuruhan</div>
           <div class="candi-card-desc">Salah satu candi Hindu tertua di Jawa Timur dari Kerajaan Kanjuruhan, dibangun pada abad ke-8 Masehi di bawah Raja Gajayana.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1308,7 +1296,7 @@
         <div class="candi-card-num">03</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Singosari</div>
-          <div class="candi-card-loc">Singosari, Malang · Singhasari</div>
+          <div class="candi-card-loc">Singosari, Malang, Singhasari</div>
           <div class="candi-card-desc">Candi pemakaman para raja Singhasari yang megah, menampilkan arsitektur Hindu tinggi khas abad ke-13 M dengan relief-relief indah.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1324,7 +1312,7 @@
         <div class="candi-card-num">04</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Sumberawan</div>
-          <div class="candi-card-loc">Singosari, Malang · Majapahit</div>
+          <div class="candi-card-loc">Singosari, Malang, Majapahit</div>
           <div class="candi-card-desc">Stupa Buddha yang terletak di tengah kolam berair jernih, merupakan satu-satunya stupa murni di Jawa Timur dari era Majapahit.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1340,7 +1328,7 @@
         <div class="candi-card-num">05</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Kidal</div>
-          <div class="candi-card-loc">Tumpang, Malang · Singhasari</div>
+          <div class="candi-card-loc">Tumpang, Malang, Singhasari</div>
           <div class="candi-card-desc">Candi pemakaman Anusapati, raja Singhasari kedua. Dikenal dengan relief Garudeya yang sangat indah dan padat pada dinding luarnya.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1356,7 +1344,7 @@
         <div class="candi-card-num">06</div>
         <div class="candi-card-content">
           <div class="candi-card-title">Candi Jago</div>
-          <div class="candi-card-loc">Tumpang, Malang · Singhasari–Majapahit</div>
+          <div class="candi-card-loc">Tumpang, Malang, Singhasari sampai Majapahit</div>
           <div class="candi-card-desc">Candi berteras tiga yang dihiasi relief cerita Pancatantra, Kunjarakarna, dan Parthayajna yang sangat kaya dan bernilai sejarah tinggi.</div>
           <button class="candi-card-btn">
             Lihat Detail
@@ -1372,14 +1360,9 @@
 <section id="team">
   <div class="team-container">
     <div class="reveal">
-      <div class="section-label" style="justify-content:center;">
-        <span style="display:block;width:28px;height:1px;background:var(--gold);opacity:.7;"></span>
-        Tim Peneliti
-        <span style="display:block;width:28px;height:1px;background:var(--gold);opacity:.7;"></span>
-      </div>
       <h2 class="section-title" style="text-align:center;">Dibalik <em>MALACANDI</em></h2>
       <p class="section-body" style="margin:0 auto;text-align:center;">
-        Penelitian ini dilaksanakan oleh dua siswa peneliti dari Madrasah Aliyah Negeri Batu, Kota Batu, Jawa Timur, dalam kerangka Olimpiade Penelitian Siswa Indonesia (OPSI) 2026.
+        Penelitian ini dilaksanakan oleh tiga siswa peneliti dari Madrasah Aliyah Negeri Batu, Kota Batu, Jawa Timur, dalam kerangka Olimpiade Penelitian Siswa Indonesia (OPSI) 2026.
       </p>
     </div>
     <div class="team-grid reveal reveal-delay-1">
@@ -1397,19 +1380,15 @@
         <div class="team-school">SISWA MAN KOTA BATU</div>
         <div class="team-id">@albrandh_</div>
       </div>
-    </div>
-    <div class="reveal reveal-delay-2" style="margin-top:40px;text-align:center;">
-      <div class="divider">
-        <div class="divider-line"></div>
-        <svg viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 2 L26 8 L20 14 L14 8 Z" stroke="#c8a228" stroke-width="1" fill="none" opacity="0.6"/>
-          <path d="M4 8 H12 M28 8 H36" stroke="#c8a228" stroke-width="0.8" opacity="0.4"/>
-        </svg>
-        <div class="divider-line"></div>
+      <!-- SLOT BARU: ganti nama dan handle. Untuk foto, ganti div.team-avatar ini dengan:
+           <img class="team-avatar" src="images/team/NAMAFILE.jpg" alt="Nama" loading="lazy"> -->
+      <div class="team-card">
+        <div class="team-avatar">?</div>
+        <div class="team-name">Nama Peneliti</div>
+        <div class="team-role">Peneliti</div>
+        <div class="team-school">SISWA MAN KOTA BATU</div>
+        <div class="team-id">@username</div>
       </div>
-      <p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">
-        Penelitian OPSI 2026 Prisma ISH 8 MAN Kota Batu Oleh Gathfaan dan Gibran
-      </p>
     </div>
   </div>
 </section>
@@ -1424,8 +1403,8 @@
     <div class="footer-center">
       <p>© 2026 MALACANDI Research Project</p>
       <p style="margin-top:6px;font-size:0.72rem;">
-        <a href="#about">Tentang</a> &nbsp;·&nbsp;
-        <a href="#virtual-tour">Virtual Tour</a> &nbsp;·&nbsp;
+        <a href="#about">Tentang</a> &nbsp;&nbsp;&nbsp;
+        <a href="#virtual-tour">Virtual Tour</a> &nbsp;&nbsp;&nbsp;
         <a href="#team">Tim</a>
       </p>
     </div>
@@ -1445,7 +1424,6 @@
 
     <!-- INFO VIEW -->
     <div class="modal-info-view" id="modal-info-view">
-      <div class="modal-badge" id="modal-badge"></div>
       <h2 class="modal-title" id="modal-title"></h2>
       <div class="modal-era" id="modal-era"></div>
       <p class="modal-desc" id="modal-desc"></p>
@@ -1506,6 +1484,34 @@
     timer = setInterval(nextSlide, 7000);
   }));
 
+  /* ── ANIMASI TAMBAHAN ── */
+  const progress = document.getElementById('progress');
+  const heroSlides = document.querySelector('.hero-slides');
+  const parMain = document.querySelector('.about-img-main');
+  const parAccent = document.querySelector('.about-img-accent');
+  let ticking = false;
+  function onScrollFx() {
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    if (y < window.innerHeight) heroSlides.style.transform = 'translateY(' + (y * 0.22) + 'px)';
+    const box = document.getElementById('about').getBoundingClientRect();
+    const d = Math.max(-1, Math.min(1, box.top / window.innerHeight));
+    parMain.style.setProperty('--py', (d * 24) + 'px');
+    parAccent.style.setProperty('--py', (d * -24) + 'px');
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScrollFx); } }, { passive: true });
+  onScrollFx();
+
+  document.querySelectorAll('.candi-card, .team-card').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
   /* ── SCROLL REVEAL ── */
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
@@ -1513,14 +1519,12 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   revealEls.forEach(el => io.observe(el));
 
- /* ── MODAL DATA ── */
-  const candiData = {
+ const candiData = {
     songgoriti: {
-      badge: 'Candi No. 01 · Kota Batu',
       title: 'Candi Songgoriti',
-      era: 'Kerajaan Mataram Kuno · Abad ke-9 Masehi',
+      era: 'Kerajaan Mataram Kuno, Abad ke-9 Masehi',
       panoeeUrl: 'https://tour.panoee.net/malacandisonggoriti',
-      desc: 'Di lereng sejuk Kota Batu, berdiri candi tertua yang menyimpan teka-teki namanya sendiri "Songgoriti", yang diduga berasal dari gabungan kata Jawa Kuno "sangha" (kumpulan) dan "riti" (kuningan), sekaligus dikenal sebagai Candi Supo karena konon didirikan Mpu Supo, utusan Mpu Sindok. Para arkeolog bahkan berdebat soal usianya: sebagian menempatkannya di abad ke-7–8 Masehi sebagai bangunan tertua di Jawa Timur, sementara yang lain mengaitkannya dengan Prasasti Sangguran 928 M pada masa Mpu Sindok. Yang membuatnya unik bukan hanya usianya, melainkan fungsinya sebagai petirtaan, sumber air panas alami mengalir dari bawah tanah, disalurkan lewat pipa batu menuju kolam suci yang melambangkan Samudramanthana, pengadukan lautan susu dalam mitologi Hindu-Siwa (hurahura, 2013). Bahkan orientasinya pun menyimpang dari kebiasaan: menghadap selatan, bukan timur (khas langgam Jawa Tengah) atau barat (khas Jawa Timur), diduga karena posisi sumber air panas lebih menentukan tata letaknya dibanding kaidah mata angin. Uniknya lagi, candi ini tak berpintu, bilik utamanya sengaja dirancang tertutup karena hanya diperuntukkan bagi lambang Siwa dan saktinya, menjadikan pemujaan dilakukan dari luar, di pinggir kolam suci. (hurahura, 2013)',
+      desc: 'Di lereng sejuk Kota Batu, berdiri candi tertua yang menyimpan teka-teki namanya sendiri "Songgoriti", yang diduga berasal dari gabungan kata Jawa Kuno "sangha" (kumpulan) dan "riti" (kuningan), sekaligus dikenal sebagai Candi Supo karena konon didirikan Mpu Supo, utusan Mpu Sindok. Para arkeolog bahkan berdebat soal usianya: sebagian menempatkannya di abad ke-7 sampai 8 Masehi sebagai bangunan tertua di Jawa Timur, sementara yang lain mengaitkannya dengan Prasasti Sangguran 928 M pada masa Mpu Sindok. Yang membuatnya unik bukan hanya usianya, melainkan fungsinya sebagai petirtaan, sumber air panas alami mengalir dari bawah tanah, disalurkan lewat pipa batu menuju kolam suci yang melambangkan Samudramanthana, pengadukan lautan susu dalam mitologi Hindu-Siwa (hurahura, 2013). Bahkan orientasinya pun menyimpang dari kebiasaan: menghadap selatan, bukan timur (khas langgam Jawa Tengah) atau barat (khas Jawa Timur), diduga karena posisi sumber air panas lebih menentukan tata letaknya dibanding kaidah mata angin. Uniknya lagi, candi ini tak berpintu, bilik utamanya sengaja dirancang tertutup karena hanya diperuntukkan bagi lambang Siwa dan saktinya, menjadikan pemujaan dilakukan dari luar, di pinggir kolam suci. (hurahura, 2013)',
       info: [
         { label: 'Lokasi', val: 'Kel. Songgokerto, Kota Batu' },
         { label: 'Periode', val: 'Abad ke-9 Masehi' },
@@ -1529,11 +1533,10 @@
       ]
     },
     badut: {
-      badge: 'Candi No. 02 · Malang Barat',
       title: 'Candi Badut',
-      era: 'Kerajaan Kanjuruhan · Abad ke-8 Masehi',
+      era: 'Kerajaan Kanjuruhan, Abad ke-8 Masehi',
       panoeeUrl: 'https://tour.panoee.net/badutmalacandi', // isi link tur Panoee buat candi ini
-      desc: 'Tersembunyi di Malang, Candi Badut menyimpan nama yang terdengar jenaka namun bermakna dalam, diduga dari kata Sanskerta "Bha-dyut" (cahaya), merujuk pada Dewa Siwa sang dewa cahaya, atau dari gelar kecil Raja Gajayana, "Liswa", yang kebetulan berarti penghibur. Prasasti Dinoyo mencatat pendiriannya pada 760 Masehi di bawah pemerintahan Raja Gajayana dari Kerajaan Kanjuruhan, menjadikannya kandidat kuat candi tertua di Jawa Timur, jauh mendahului era Airlangga (Munandar & Hurahura, 2010). Di dalam biliknya ditemukan lingga-yoni serta arca Durga Mahisasuramardini, menegaskan fungsinya sebagai tempat pemujaan Hindu-Siwa. Menariknya, saat ditemukan tahun 1921 candi ini hanya berupa gundukan reruntuhan; pemugaran 1925–1927 oleh arkeolog Belanda B. de Haan berhasil menyusun kembali kaki dan tubuh candi, namun atapnya tak pernah ditemukan sehingga bentuk aslinya tetap misteri, meski gaya arsitekturnya yang tambun dan berhias kala-makara jelas menunjukkan langgam Jawa Tengah, wajar mengingat usianya yang jauh mendahului tradisi Jawa Timur (Irianto, Bakti, & Sukmaraga, 2025).',
+      desc: 'Tersembunyi di Malang, Candi Badut menyimpan nama yang terdengar jenaka namun bermakna dalam, diduga dari kata Sanskerta "Bha-dyut" (cahaya), merujuk pada Dewa Siwa sang dewa cahaya, atau dari gelar kecil Raja Gajayana, "Liswa", yang kebetulan berarti penghibur. Prasasti Dinoyo mencatat pendiriannya pada 760 Masehi di bawah pemerintahan Raja Gajayana dari Kerajaan Kanjuruhan, menjadikannya kandidat kuat candi tertua di Jawa Timur, jauh mendahului era Airlangga (Munandar & Hurahura, 2010). Di dalam biliknya ditemukan lingga-yoni serta arca Durga Mahisasuramardini, menegaskan fungsinya sebagai tempat pemujaan Hindu-Siwa. Menariknya, saat ditemukan tahun 1921 candi ini hanya berupa gundukan reruntuhan; pemugaran 1925 sampai 1927 oleh arkeolog Belanda B. de Haan berhasil menyusun kembali kaki dan tubuh candi, namun atapnya tak pernah ditemukan sehingga bentuk aslinya tetap misteri, meski gaya arsitekturnya yang tambun dan berhias kala-makara jelas menunjukkan langgam Jawa Tengah, wajar mengingat usianya yang jauh mendahului tradisi Jawa Timur (Irianto, Bakti, & Sukmaraga, 2025).',
       info: [
         { label: 'Lokasi', val: 'Tidar Utara, Malang' },
         { label: 'Periode', val: 'Abad ke-8 Masehi (760 M)' },
@@ -1542,9 +1545,8 @@
       ]
     },
     singosari: {
-      badge: 'Candi No. 03 · Singosari',
       title: 'Candi Singosari',
-      era: 'Kerajaan Singhasari · Abad ke-13 Masehi',
+      era: 'Kerajaan Singhasari, Abad ke-13 Masehi',
       panoeeUrl: 'https://tour.panoee.net/singosarimalacandi', // isi link tur Panoee buat candi ini
       desc: 'Berdiri sebagai monumen terakhir sebuah kerajaan yang runtuh, Candi Singosari mengambil nama dari bahasa Sanskerta "singo" (singa) dan "sari" (keagungan), nama ibu kota yang ditetapkan Raja Wisnuwardhana pada 1253 M yang kemudian melekat pada seluruh kerajaan. Dibangun sekitar tahun 1300 M sebagai pendharmaan bagi Kertanagara, raja terakhir Singhasari yang gugur akibat serangan Jayakatwang pada 1292 M, candi ini bahkan tak pernah selesai dibangun karena kerajaannya keburu runtuh. Relief-relief yang berada di candi Singosari memiliki arti dibagian bawah memiliki makna sebagai dunia dan relief atas yang polos menggambarkan khayangan (Isaghoji & Sartika, 2025). Arca-arcanya seperti Bhairawa, Mahakala, hingga Ganesha Tantra, menyingkap sinkretisme Siwa-Buddha khas Kertanagara, sementara dua Arca Dwarapala raksasa setinggi 3,70 meter yang masih berdiri gagah di tepi jalan desa dahulu menjaga gerbang istana (Budiyono, Putri, & Fitra, 2025). Kisah pahitnya: pada 1804, sejumlah arca berharga diangkut ke Belanda atas perintah Gubernur Nicolaus Engelhard dan kini tersimpan di Museum Nasional Kebudayaan Dunia, Leiden, meninggalkan candi ini hanya dengan satu arca Agastya yang tersisa, meski proses repatriasi mulai dirintis pada 2023.',
       info: [
@@ -1555,11 +1557,10 @@
       ]
     },
     sumberawan: {
-      badge: 'Candi No. 04 · Singosari',
       title: 'Candi Sumberawan',
-      era: 'Kerajaan Majapahit · Abad ke-14 Masehi',
+      era: 'Kerajaan Majapahit, Abad ke-14 Masehi',
       panoeeUrl: 'https://tour.panoee.net/sumberawanmalacandi', // isi link tur Panoee buat candi ini
-      desc: 'Berbeda dari saudara-saudaranya yang megah berbilik, Candi Sumberawan tampil sederhana sebagai satu-satunya stupa murni di Jawa Timur (Puspitasari & Andriyanto, 2023). Namanya sebenarnya bukan berasal dari "awan" seperti sangkaan umum, melainkan gabungan "sumber" (mata air) dan "rawa", sesuai lanskap aslinya yang dikelilingi rawa, bahkan dalam Kakawin Negarakertagama tempat ini disebut Kasurangganan, "Taman Bidadari", yang pernah disinggahi Hayam Wuruk pada 1359 M. Diperkirakan dibangun sekitar abad ke-14–15 pada masa Majapahit, candi Buddha ini sengaja dirancang tanpa bilik, tangga, atau relief, bahkan tak ditemukan relik maupun abu jenazah di dalamnya, sebuah keanehan bagi sebuah stupa. Rahasianya justru terletak di bawah tanah: dua sendang suci, Kamulyan dan Kahuripan, dipercaya membawa berkah sandang-pangan-jabatan dan kesehatan, menjadikan candi ini pusat spiritual yang terikat erat pada air suci, bukan pada benda pusaka, sebuah simbol toleransi keagamaan berdampingan dengan candi-candi Siwa di sekitarnya (Titisari, Antariksa, W., & Surjono, 2017).',
+      desc: 'Berbeda dari saudara-saudaranya yang megah berbilik, Candi Sumberawan tampil sederhana sebagai satu-satunya stupa murni di Jawa Timur (Puspitasari & Andriyanto, 2023). Namanya sebenarnya bukan berasal dari "awan" seperti sangkaan umum, melainkan gabungan "sumber" (mata air) dan "rawa", sesuai lanskap aslinya yang dikelilingi rawa, bahkan dalam Kakawin Negarakertagama tempat ini disebut Kasurangganan, "Taman Bidadari", yang pernah disinggahi Hayam Wuruk pada 1359 M. Diperkirakan dibangun sekitar abad ke-14 sampai 15 pada masa Majapahit, candi Buddha ini sengaja dirancang tanpa bilik, tangga, atau relief, bahkan tak ditemukan relik maupun abu jenazah di dalamnya, sebuah keanehan bagi sebuah stupa. Rahasianya justru terletak di bawah tanah: dua sendang suci, Kamulyan dan Kahuripan, dipercaya membawa berkah sandang-pangan-jabatan dan kesehatan, menjadikan candi ini pusat spiritual yang terikat erat pada air suci, bukan pada benda pusaka, sebuah simbol toleransi keagamaan berdampingan dengan candi-candi Siwa di sekitarnya (Titisari, Antariksa, W., & Surjono, 2017).',
       info: [
         { label: 'Lokasi', val: 'Kec. Singosari, Kab. Malang' },
         { label: 'Periode', val: 'Abad ke-14 Masehi (1300-an M)' },
@@ -1568,9 +1569,8 @@
       ]
     },
     kidal: {
-      badge: 'Candi No. 05 · Tumpang',
       title: 'Candi Kidal',
-      era: 'Kerajaan Singhasari · Abad ke-13 Masehi',
+      era: 'Kerajaan Singhasari, Abad ke-13 Masehi',
       panoeeUrl: 'https://tour.panoee.net/kidalmalacandi', // isi link tur Panoee buat candi ini
       desc: 'Menutup rangkaian ini adalah Candi Kidal, yang namanya menyimpan makna ganda dalam kamus Jawa Kuno: "kiri" atau "kidul" (selatan). Sebagian sejarawan mengaitkannya dengan nasib Raja Anusapati, putra tiri Ken Arok yang "dikirikan" atau kurang diperhatikan, sejalan dengan arah baca reliefnya yang prasawiya, dari kanan ke kiri, berlawanan arah jarum jam. Dibangun sekitar 1248 M sebagai pendharmaan tunggal bagi Anusapati, raja kedua Singhasari, candi ini menyimpan mahakarya relief Garudeya di kakinya: kisah burung Garuda yang berjuang membebaskan ibunya, Dewi Winata, dari perbudakan demi setetes tirta amerta (Titisari, Antariksa, W., & Surjono, 2017). Di balik mitos itu tersimpan pesan personal Anusapati, mengangkat derajat ibunya, Ken Dedes, yang lama terabaikan oleh Ken Arok. Begitu dalam filosofi pembebasan ini sehingga relief Garudeya Candi Kidal diyakini turut menginspirasi bentuk Garuda Pancasila, lambang negara Indonesia yang dirumuskan di era Soekarno (Toni, 2022).',
       info: [
@@ -1581,16 +1581,15 @@
       ]
     },
     jago: {
-      badge: 'Candi No. 06 · Tumpang',
       title: 'Candi Jago',
-      era: 'Singhasari–Majapahit · Abad ke-13–14 Masehi',
+      era: 'Singhasari sampai Majapahit, Abad ke-13 sampai 14 Masehi',
       panoeeUrl: 'https://tour.panoee.net/jagomalacandi', // isi link tur Panoee buat candi ini
       desc: 'Nama "Jago" ternyata bukan warisan tradisi sabung ayam, melainkan bentuk modern dari "Jajaghu" dalam Negarakertagama dan Pararaton, yang berarti "keagungan". Dibangun sejak 1268 hingga 1280 M atas perintah Kertanagara sebagai penghormatan bagi ayahandanya, Wisnuwardhana, candi ini kemudian dipugar kembali pada 1343 M oleh Adityawarman, bangsawan Melayu yang punya garis darah dengan Hayam Wuruk (Maulidi & Rukmi, 2018). Reliefnya menjadi galeri dua dunia sekaligus: kisah Buddhistis Tantri Kamandaka dan Kunjarakarna berdampingan dengan kisah Hinduistis Parthayajna, Arjunawiwaha, dan peperangan Kresna, mencerminkan ajaran Siwa-Buddha yang dianut Wisnuwardhana. Yang mengejutkan, bukti arkeologis menunjukkan candi ini tak pernah benar-benar rampung, sebuah arca tanpa kepala dan tiga kepala kala yang tergeletak lepas, dengan kondisi permukaan yang masih terlalu mulus untuk pernah lama terpasang, menjadi saksi pembangunan yang terhenti berkali-kali akibat peperangan hingga akhirnya dilanjutkan pada era Majapahit (Budiyono, Putri, & Fitra, 2025).',
       info: [
         { label: 'Lokasi', val: 'Kec. Tumpang, Kab. Malang' },
-        { label: 'Periode', val: 'Abad ke-13–14 M (1268 M)' },
+        { label: 'Periode', val: 'Abad ke-13 sampai 14 M (1268 M)' },
         { label: 'Agama', val: 'Hindu-Buddha (Sinkretis)' },
-        { label: 'Kerajaan', val: 'Singhasari → Majapahit' }
+        { label: 'Kerajaan', val: 'Singhasari sampai Majapahit' }
       ]
     }
   };
@@ -1601,7 +1600,6 @@
     const d = candiData[id];
     if (!d) return;
     currentCandiId = id;
-    document.getElementById('modal-badge').textContent = d.badge;
     document.getElementById('modal-title').textContent = d.title;
     document.getElementById('modal-era').textContent = d.era;
     document.getElementById('modal-desc').textContent = d.desc;
@@ -1620,10 +1618,10 @@
   }
 
   function closeModal(e) {
-    if (e && e.target !== document.getElementById('modal-overlay') && !e.target.classList.contains('modal-close')) return;
+    if (e && e.target && e.target !== document.getElementById('modal-overlay') && !e.target.classList.contains('modal-close')) return;
     document.getElementById('modal-overlay').classList.remove('open');
     document.body.style.overflow = '';
-    destroyViewer();
+    closeTour();
   }
 
   function showLoading(text) {
@@ -1647,7 +1645,7 @@
     inner.innerHTML = '';
 
     // TODO: isi panoeeUrl di candiData begitu tur candi ini udah dipublish
-    // di Panoee (studio.panoee.com) — tinggal copy link embed-nya ke sini.
+    // di Panoee (studio.panoee.com) , tinggal copy link embed-nya ke sini.
     if (!d.panoeeUrl) {
       hideLoading();
       inner.innerHTML = `
@@ -1678,7 +1676,7 @@
     hideLoading();
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({}); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
